@@ -3,6 +3,7 @@ const fs = require("fs");
 
 // SETUP data
 // no need for beforeAll because sync
+const testFilePath = "./data.json";
 const playlists = [
   {
     id: 1,
@@ -79,9 +80,9 @@ const playlists = [
     limit: 4,
   },
 ];
-fs.writeFileSync("./data.json", JSON.stringify(playlists, null, 2));
+fs.writeFileSync(testFilePath, JSON.stringify(playlists, null, 2));
 
-describe("Release 1 Show Success", () => {
+describe("Release 1 Show", () => {
   test("is an Array", (done) => {
     function callback(err, playlists) {
       if (err) {
@@ -275,34 +276,14 @@ describe("Release 1 Show Success", () => {
   });
 });
 
-describe("Release 1 Delete Success", () => {
-  test("success delete id 1", (done) => {
-    function callback(err, deletedPlaylist) {
-      if (err) {
-        done(err);
-        return;
-      }
-      try {
-        expect(deletedPlaylist.constructor.name).toBe("Mythic");
-        expect(deletedPlaylist).toHaveProperty("id", 1);
-
-        const afterDeletePlaylists = JSON.parse(fs.readFileSync("./data.json"));
-        expect(afterDeletePlaylists.length).toBe(2);
-        done();
-      } catch (err) {
-        done(err);
-      }
-    }
-
-    Controller.delete(1, callback);
-  });
-
-  test("failed delete id 1, should return error", (done) => {
+describe("Release 1 Delete", () => {
+  test("failed delete id 4, should return error", (done) => {
+    const playListId = 4;
     function callback(err) {
       if (err) {
         expect(err).not.toBe(null);
-        const afterDeletePlaylists = JSON.parse(fs.readFileSync("./data.json"));
-        expect(afterDeletePlaylists.length).toBe(2);
+        const afterDeletePlaylists = JSON.parse(fs.readFileSync(testFilePath));
+        expect(afterDeletePlaylists.length).toBe(3);
         done();
         return;
       } else {
@@ -310,6 +291,46 @@ describe("Release 1 Delete Success", () => {
       }
     }
 
-    Controller.delete(1, callback);
+    Controller.delete(playListId, callback);
+  });
+
+  test("success delete id 1", (done) => {
+    const playListId = 1;
+    function callback(err, deletedPlaylist) {
+      if (err) {
+        done(err);
+        return;
+      }
+      try {
+        expect(deletedPlaylist.constructor.name).toBe("Mythic");
+        expect(deletedPlaylist).toHaveProperty("id", playListId);
+
+        const afterDeletePlaylists = JSON.parse(fs.readFileSync(testFilePath));
+        expect(afterDeletePlaylists.length).toBe(2);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    }
+
+    Controller.delete(playListId, callback);
+  });
+
+  test("is JSON format still the same", () => {
+    const playlists = JSON.parse(fs.readFileSync(testFilePath));
+    playlists.forEach((playlist) => {
+      expect(playlist).toHaveProperty("id");
+      expect(playlist).toHaveProperty("name");
+      expect(playlist).toHaveProperty("type");
+      expect(playlist).toHaveProperty("songs");
+      expect(playlist.songs.constructor.name).toBe("Array");
+      expect(playlist).toHaveProperty("limit");
+
+      playlist.songs.forEach((song) => {
+        expect(song).toHaveProperty("name");
+        expect(song).toHaveProperty("group");
+        expect(song).toHaveProperty("duration");
+      });
+    });
   });
 });

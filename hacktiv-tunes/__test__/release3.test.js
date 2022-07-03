@@ -3,6 +3,7 @@ const fs = require("fs");
 
 // SETUP data
 // no need for beforeAll because sync
+const testFilePath = "./data.json";
 const playlists = [
   {
     id: 1,
@@ -79,7 +80,7 @@ const playlists = [
     limit: 4,
   },
 ];
-fs.writeFileSync("./data.json", JSON.stringify(playlists, null, 2));
+fs.writeFileSync(testFilePath, JSON.stringify(playlists, null, 2));
 
 describe("Release 3", () => {
   test("success add limit Mythic", (done) => {
@@ -134,5 +135,23 @@ describe("Release 3", () => {
     }
 
     Controller.upgradeLimitPlaylist(playlistId, callback);
+  });
+
+  test("is JSON format still the same", () => {
+    const playlists = JSON.parse(fs.readFileSync(testFilePath));
+    playlists.forEach((playlist) => {
+      expect(playlist).toHaveProperty("id");
+      expect(playlist).toHaveProperty("name");
+      expect(playlist).toHaveProperty("type");
+      expect(playlist).toHaveProperty("songs");
+      expect(playlist.songs.constructor.name).toBe("Array");
+      expect(playlist).toHaveProperty("limit");
+
+      playlist.songs.forEach((song) => {
+        expect(song).toHaveProperty("name");
+        expect(song).toHaveProperty("group");
+        expect(song).toHaveProperty("duration");
+      });
+    });
   });
 });

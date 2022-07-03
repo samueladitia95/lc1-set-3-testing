@@ -3,6 +3,7 @@ const fs = require("fs");
 
 // SETUP data
 // no need for beforeAll because sync
+const testFilePath = "./data.json";
 const playlists = [
   {
     id: 1,
@@ -79,7 +80,7 @@ const playlists = [
     limit: 4,
   },
 ];
-fs.writeFileSync("./data.json", JSON.stringify(playlists, null, 2));
+fs.writeFileSync(testFilePath, JSON.stringify(playlists, null, 2));
 
 describe("Release 2", () => {
   test("failed add new song to playlist, id not found", (done) => {
@@ -90,7 +91,7 @@ describe("Release 2", () => {
     function callback(err) {
       if (err) {
         expect(err).not.toBe(null);
-        const playlists = JSON.parse(fs.readFileSync("./data.json"));
+        const playlists = JSON.parse(fs.readFileSync(testFilePath));
         expect(playlists[0].songs.length).toBe(4);
         expect(playlists[1].songs.length).toBe(2);
         expect(playlists[2].songs.length).toBe(4);
@@ -113,7 +114,7 @@ describe("Release 2", () => {
     function callback(err) {
       if (err) {
         expect(err).not.toBe(null);
-        const playlists = JSON.parse(fs.readFileSync("./data.json"));
+        const playlists = JSON.parse(fs.readFileSync(testFilePath));
         expect(playlists[2].songs.length).toBe(4);
 
         done();
@@ -150,5 +151,23 @@ describe("Release 2", () => {
     }
 
     Controller.addToPlaylist(playlistId, name, group, duration, callback);
+  });
+  
+  test("is JSON format still the same", () => {
+    const playlists = JSON.parse(fs.readFileSync(testFilePath));
+    playlists.forEach((playlist) => {
+      expect(playlist).toHaveProperty("id");
+      expect(playlist).toHaveProperty("name");
+      expect(playlist).toHaveProperty("type");
+      expect(playlist).toHaveProperty("songs");
+      expect(playlist.songs.constructor.name).toBe("Array");
+      expect(playlist).toHaveProperty("limit");
+
+      playlist.songs.forEach((song) => {
+        expect(song).toHaveProperty("name");
+        expect(song).toHaveProperty("group");
+        expect(song).toHaveProperty("duration");
+      });
+    });
   });
 });
