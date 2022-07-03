@@ -1,33 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "Funtastic Kpop",
-    "type": "Mythic",
-    "songs": [
-      {
-        "name": "Mr Chu",
-        "group": "Apink",
-        "duration": 180
-      },
-      {
-        "name": "No No NO",
-        "group": "Apink",
-        "duration": 200
-      },
-      {
-        "name": "Wishlist",
-        "group": "Apink",
-        "duration": 180
-      },
-      {
-        "name": "Mr Chu",
-        "group": "Apink",
-        "duration": 320
-      }
-    ],
-    "limit": 10
-  },
-  {
     "id": 2,
     "name": "Waktunya Hacktivtunes",
     "type": "Legend",

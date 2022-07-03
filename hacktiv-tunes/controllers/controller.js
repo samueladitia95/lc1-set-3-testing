@@ -36,8 +36,11 @@ class Controller {
     });
   }
 
-  static addToPlaylist(id, name, group, duration) {
+  static addToPlaylist(id, name, group, duration, testCB) {
     Model.addSongToPlaylist(+id, name, group, +duration, (err, playlist) => {
+      if (testCB) {
+        testCB(err, playlist);
+      }
       if (err) {
         if (err.code === 2) {
           View.findPlaylistError();
