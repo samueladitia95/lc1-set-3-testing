@@ -20,6 +20,7 @@ class Controller {
 
   static delete(id, testCB) {
     Model.delete(+id, (err, deletedData) => {
+      //! Testing Only
       if (testCB) {
         testCB(err, deletedData);
       }
@@ -38,6 +39,7 @@ class Controller {
 
   static addToPlaylist(id, name, group, duration, testCB) {
     Model.addSongToPlaylist(+id, name, group, +duration, (err, playlist) => {
+      //! Testing Only
       if (testCB) {
         testCB(err, playlist);
       }
@@ -55,8 +57,12 @@ class Controller {
     });
   }
 
-  static upgradeLimitPlaylist(id) {
+  static upgradeLimitPlaylist(id, testCB) {
     Model.upgradeLimitPlaylist(+id, (err, playlist) => {
+      //! Testing Only
+      if (testCB) {
+        testCB(err, playlist);
+      }
       if (err) {
         if (err.code === 2) {
           View.findPlaylistError();
