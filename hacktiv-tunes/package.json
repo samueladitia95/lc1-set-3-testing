@@ -4,7 +4,7 @@
   "description": "> ⏰ Time Estimation ~120 minutes",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --testTimeout=500"
   },
   "keywords": [],
   "author": "",

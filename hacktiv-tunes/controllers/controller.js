@@ -18,8 +18,12 @@ class Controller {
     });
   }
 
-  static delete(id) {
+  static delete(id, testCB) {
     Model.delete(+id, (err, deletedData) => {
+      if (testCB) {
+        testCB(err, deletedData);
+      }
+
       if (err) {
         if (err.code === 1) {
           View.readError(err.error);

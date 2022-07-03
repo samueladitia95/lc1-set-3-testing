@@ -71,7 +71,7 @@ const playlists = [
 ];
 fs.writeFileSync("./data.json", JSON.stringify(playlists, null, 2));
 
-describe("Release 1 Success", () => {
+describe("Release 1 Show Success", () => {
   test("is an Array", (done) => {
     function callback(err, playlists) {
       if (err) {
@@ -262,5 +262,44 @@ describe("Release 1 Success", () => {
     }
 
     Controller.show(callback);
+  });
+});
+
+describe("Release 1 Delete Success", () => {
+  test("success delete id 1", (done) => {
+    function callback(err, deletedPlaylist) {
+      if (err) {
+        done(err);
+        return;
+      }
+      try {
+        expect(deletedPlaylist.constructor.name).toBe("Mythic");
+        expect(deletedPlaylist).toHaveProperty("id", 1);
+
+        const afterDeletePlaylists = JSON.parse(fs.readFileSync("./data.json"));
+        expect(afterDeletePlaylists.length).toBe(2);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    }
+
+    Controller.delete(1, callback);
+  });
+
+  test("failed delete id 1, should return error", (done) => {
+    function callback(err) {
+      if (err) {
+        expect(err).not.toBe(null);
+        const afterDeletePlaylists = JSON.parse(fs.readFileSync("./data.json"));
+        expect(afterDeletePlaylists.length).toBe(2);
+        done();
+        return;
+      } else {
+        done(err);
+      }
+    }
+
+    Controller.delete(1, callback);
   });
 });
