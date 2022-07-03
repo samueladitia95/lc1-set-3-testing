@@ -25,7 +25,7 @@
         "duration": 320
       }
     ],
-    "limit": 15
+    "limit": 10
   },
   {
     "id": 2,
@@ -43,7 +43,7 @@
         "duration": 180
       }
     ],
-    "limit": 9
+    "limit": 6
   },
   {
     "id": 3,
@@ -71,6 +71,6 @@
         "duration": 90
       }
     ],
-    "limit": 6
+    "limit": 4
   }
 ]
