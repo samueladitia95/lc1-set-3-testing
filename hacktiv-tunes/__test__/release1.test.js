@@ -127,6 +127,27 @@ describe("Release 1 Success", () => {
     Controller.show(callback);
   });
 
+  test("Mythic class properties check", (done) => {
+    function callback(err, playlists) {
+      if (err) {
+        done(err);
+        return;
+      }
+      try {
+        expect(playlists[0]).toHaveProperty("id", 1);
+        expect(playlists[0]).toHaveProperty("name");
+        expect(playlists[0]).toHaveProperty("type", "Mythic");
+        expect(playlists[0]).toHaveProperty("songs");
+        expect(playlists[0]).toHaveProperty("limit");
+        done();
+      } catch (err) {
+        done(err);
+      }
+    }
+
+    Controller.show(callback);
+  });
+
   test("is Legend class child of Playlist class", (done) => {
     function callback(err, playlists) {
       if (err) {
@@ -136,6 +157,27 @@ describe("Release 1 Success", () => {
       try {
         const regex = /Legend extends Playlist/;
         expect(playlists[1].constructor.toString().match(regex)).not.toBe(null);
+        done();
+      } catch (err) {
+        done(err);
+      }
+    }
+
+    Controller.show(callback);
+  });
+
+  test("Legend class properties check", (done) => {
+    function callback(err, playlists) {
+      if (err) {
+        done(err);
+        return;
+      }
+      try {
+        expect(playlists[1]).toHaveProperty("id", 2);
+        expect(playlists[1]).toHaveProperty("name");
+        expect(playlists[1]).toHaveProperty("type", "Legend");
+        expect(playlists[1]).toHaveProperty("songs");
+        expect(playlists[1]).toHaveProperty("limit");
         done();
       } catch (err) {
         done(err);
@@ -163,6 +205,27 @@ describe("Release 1 Success", () => {
     Controller.show(callback);
   });
 
+  test("Epic class properties check", (done) => {
+    function callback(err, playlists) {
+      if (err) {
+        done(err);
+        return;
+      }
+      try {
+        expect(playlists[2]).toHaveProperty("id", 3);
+        expect(playlists[2]).toHaveProperty("name");
+        expect(playlists[2]).toHaveProperty("type", "Epic");
+        expect(playlists[2]).toHaveProperty("songs");
+        expect(playlists[2]).toHaveProperty("limit");
+        done();
+      } catch (err) {
+        done(err);
+      }
+    }
+
+    Controller.show(callback);
+  });
+
   test("songs properties is an Array of Song class", (done) => {
     function callback(err, playlists) {
       if (err) {
@@ -173,6 +236,25 @@ describe("Release 1 Success", () => {
         expect(playlists[0].songs.constructor.name).toBe("Array");
         expect(playlists[0].songs.length).toBe(4);
         expect(playlists[0].songs[0].constructor.name).toBe("Song");
+        done();
+      } catch (err) {
+        done(err);
+      }
+    }
+
+    Controller.show(callback);
+  });
+
+  test("Song class properties check", (done) => {
+    function callback(err, playlists) {
+      if (err) {
+        done(err);
+        return;
+      }
+      try {
+        expect(playlists[0].songs[0]).toHaveProperty("name");
+        expect(playlists[0].songs[0]).toHaveProperty("group");
+        expect(playlists[0].songs[0]).toHaveProperty("duration");
         done();
       } catch (err) {
         done(err);
