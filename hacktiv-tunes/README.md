@@ -5,6 +5,7 @@
 ## Summary
 
 Kalian diminta untuk membuat aplikasi bernama `Hacktiv Tunes` yang akan menampilkan `Playlist` yang merupakan kumpulan `lagu` yang disukai oleh user.
+
 > Kerjakan Live Code ini didalam folder `hacktiv-tunes` yang sudah disediakan dengan template MVC.
 
 ## Release 0
@@ -28,13 +29,13 @@ Dimana class `Song` memiliki property:
 | duration | `duration` dari sebuah `Song` yang dibuat dalam hitungan detik |
 
 > Property **limit** merupakan property yang menentukan jumlah `Song` yang bisa ditambah pada Playlist. \
-> Buatlah property ini menjadi private dan buatlah getter & setter apabila dibutuhkan. 
+> Buatlah property ini menjadi private dan buatlah getter & setter apabila dibutuhkan.
 
 Terdapat tiga type `Playlist` yang bisa didaftarkan yaitu:
 
 - Mythic
 
-  - Memiliki `limit` awal 10 `Song` yang dapat ditampung. 
+  - Memiliki `limit` awal 10 `Song` yang dapat ditampung.
 
 * Legend
 
@@ -77,7 +78,7 @@ Buatlah sebuah controller yang memiliki fitur:
       ```bash
         $ node index.js delete 1
       ```
-    - Lakukan validasi terhadap `id` yang diminta. Jika tidak ada  tampilkan pesan error.
+    - Lakukan validasi terhadap `id` yang diminta. Jika tidak ada tampilkan pesan error.
 
       <img src="./assets/validasi-id.png" alt="validasi-id">
 
@@ -124,13 +125,16 @@ Ada beberapa rule validasi yang harus dipenuhi untuk menambahkan `Song` baru
 Buatlah sebuah fitur untuk melakukan upgrade limit dari playlist.\
 Buatlah instance method 'upgradeLimit' pada masing-masing class yang membutuhkan.\
 Method ini akan mengupdate `limit` dari `Playlist` yang dipilih sesuai `id` yang dimasukkan.\
-Besar kenaikan limit adalah : 
- - +5 untuk Mythic
- - +3 untuk Legend
- - +2 untuk Epic
-> HARUS menggunakan Konsep `Polymorphism` untuk mengimplementasikan fitur ini.
+Besar kenaikan limit adalah :
+
+- +5 untuk Mythic
+- +3 untuk Legend
+- +2 untuk Epic
+
+  > HARUS menggunakan Konsep `Polymorphism` untuk mengimplementasikan fitur ini.
 
 - Format command yang harus dijalankan
+
   ```bash
     $ node index.js upgradeLimitPlaylist <id>
   ```
@@ -145,7 +149,7 @@ Besar kenaikan limit adalah :
 
   <img src="./assets/upgradeLimitPlaylist.png" alt="upgradeLimitPlaylist">
 
-- Lakukan validasi terhadap `id` yang diminta. Jika tidak ada  tampilkan pesan error.
+- Lakukan validasi terhadap `id` yang diminta. Jika tidak ada tampilkan pesan error.
 
   <img src="./assets/validasi-id.png" alt="validasi-id">
 
@@ -172,7 +176,6 @@ Buatlah sebuah fitur `detail` yang akan menampilkan list `Song` yang terdapat pa
 
 - Dapat mengguanakan `console.table()` untuk mendapatkan format sesuai dengan ekspektasi.
 
-- Lakukan validasi terhadap `id` yang diminta. Jika tidak ada  tampilkan pesan error.
+- Lakukan validasi terhadap `id` yang diminta. Jika tidak ada tampilkan pesan error.
 
   <img src="./assets/validasi-id.png" alt="validasi-id">
-  

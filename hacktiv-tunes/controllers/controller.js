@@ -3,8 +3,13 @@ const View = require("../views/view");
 
 class Controller {
   // Tambahkan parameter sesuai kebutuhanmu
-  static show() {
+  static show(testCB) {
     Model.readData((err, playlists) => {
+      //! Testing Only
+      if (testCB) {
+        testCB(err, playlists);
+      }
+
       if (err) {
         View.readError(err.error);
       } else {
