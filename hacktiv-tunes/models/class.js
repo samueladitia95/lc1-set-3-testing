@@ -76,9 +76,11 @@ class Song {
   }
 
   durationInMinute() {
-    const minute = Math.floor(this.duration / 60);
-    const second = this.duration % 60;
-    return `${minute}:${second > 9 ? second : 0 + second}`;
+    return (
+      (this.duration - (this.duration %= 60)) / 60 +
+      (9 < this.duration ? ":" : ":0") +
+      this.duration
+    );
   }
 }
 

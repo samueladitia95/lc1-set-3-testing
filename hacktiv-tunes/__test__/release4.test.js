@@ -1,6 +1,12 @@
 const Controller = require("../controllers/controller");
 const fs = require("fs");
 
+function durationInMinute(duration) {
+  return (
+    (duration - (duration %= 60)) / 60 + (9 < duration ? ":" : ":0") + duration
+  );
+}
+
 // SETUP data
 // no need for beforeAll because sync
 const testFilePath = "./data.json";
@@ -82,17 +88,12 @@ const playlists = [
 ];
 fs.writeFileSync(testFilePath, JSON.stringify(playlists, null, 2));
 
-describe("Release 3", () => {
-  test("failed upgrade playlist limit, playlist id not found", (done) => {
+describe("Release 4", () => {
+  test("failed detail playlist, playlist id not found", (done) => {
     const playlistId = 4;
     function callback(err) {
       if (err) {
         expect(err).not.toBe(null);
-        const playlists = JSON.parse(fs.readFileSync(testFilePath));
-        expect(playlists[0].limit).toBe(10);
-        expect(playlists[1].limit).toBe(6);
-        expect(playlists[2].limit).toBe(4);
-
         done();
         return;
       } else {
@@ -100,10 +101,10 @@ describe("Release 3", () => {
       }
     }
 
-    Controller.upgradeLimitPlaylist(playlistId, callback);
+    Controller.detail(playlistId, callback);
   });
 
-  test("success add limit Mythic", (done) => {
+  test("playlist detail success", (done) => {
     const playlistId = 1;
     function callback(err, playlist) {
       if (err) {
@@ -111,67 +112,35 @@ describe("Release 3", () => {
         return;
       }
       try {
-        expect(playlist).toHaveProperty("limit", 15);
+        expect(playlist).toHaveProperty("id", 1);
         done();
       } catch (err) {
         done(err);
       }
     }
 
-    Controller.upgradeLimitPlaylist(playlistId, callback);
+    Controller.detail(playlistId, callback);
   });
 
-  test("success add limit Legend", (done) => {
-    const playlistId = 2;
+  test("method durationInMinute successfully created", (done) => {
+    const playlistId = 1;
     function callback(err, playlist) {
       if (err) {
         done(err);
         return;
       }
       try {
-        expect(playlist).toHaveProperty("limit", 9);
+        playlist.songs.forEach((song) => {
+          const durationInSeconds = song.duration;
+          const convertedTime = song.durationInMinute();
+          expect(durationInMinute(durationInSeconds)).toBe(convertedTime);
+        });
         done();
       } catch (err) {
         done(err);
       }
     }
 
-    Controller.upgradeLimitPlaylist(playlistId, callback);
-  });
-
-  test("success add limit Epic", (done) => {
-    const playlistId = 3;
-    function callback(err, playlist) {
-      if (err) {
-        done(err);
-        return;
-      }
-      try {
-        expect(playlist).toHaveProperty("limit", 6);
-        done();
-      } catch (err) {
-        done(err);
-      }
-    }
-
-    Controller.upgradeLimitPlaylist(playlistId, callback);
-  });
-
-  test("is JSON format still the same", () => {
-    const playlists = JSON.parse(fs.readFileSync(testFilePath));
-    playlists.forEach((playlist) => {
-      expect(playlist).toHaveProperty("id");
-      expect(playlist).toHaveProperty("name");
-      expect(playlist).toHaveProperty("type");
-      expect(playlist).toHaveProperty("songs");
-      expect(playlist.songs.constructor.name).toBe("Array");
-      expect(playlist).toHaveProperty("limit");
-
-      playlist.songs.forEach((song) => {
-        expect(song).toHaveProperty("name");
-        expect(song).toHaveProperty("group");
-        expect(song).toHaveProperty("duration");
-      });
-    });
+    Controller.detail(playlistId, callback);
   });
 });

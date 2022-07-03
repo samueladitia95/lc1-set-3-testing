@@ -75,8 +75,12 @@ class Controller {
     });
   }
 
-  static detail(id) {
+  static detail(id, testCB) {
     Model.findOne(+id, (err, playlist) => {
+      //! Testing Only
+      if (testCB) {
+        testCB(err, playlist);
+      }
       if (err) {
         if (err.code === 2) {
           View.findPlaylistError();
