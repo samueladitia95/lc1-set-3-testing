@@ -81,7 +81,7 @@ const playlists = [
 ];
 fs.writeFileSync("./data.json", JSON.stringify(playlists, null, 2));
 
-describe("Release 2 Success", () => {
+describe("Release 2", () => {
   test("failed add new song to playlist, id not found", (done) => {
     const playlistId = 4;
     const name = "Daddy Daddy Do";
@@ -93,6 +93,27 @@ describe("Release 2 Success", () => {
         const playlists = JSON.parse(fs.readFileSync("./data.json"));
         expect(playlists[0].songs.length).toBe(4);
         expect(playlists[1].songs.length).toBe(2);
+        expect(playlists[2].songs.length).toBe(4);
+
+        done();
+        return;
+      } else {
+        done(err);
+      }
+    }
+
+    Controller.addToPlaylist(playlistId, name, group, duration, callback);
+  });
+
+  test("failed add new song to playlist, playlist already reach limit", (done) => {
+    const playlistId = 3;
+    const name = "Daddy Daddy Do";
+    const group = "JPop";
+    const duration = 100;
+    function callback(err) {
+      if (err) {
+        expect(err).not.toBe(null);
+        const playlists = JSON.parse(fs.readFileSync("./data.json"));
         expect(playlists[2].songs.length).toBe(4);
 
         done();

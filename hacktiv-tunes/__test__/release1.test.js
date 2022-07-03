@@ -65,6 +65,16 @@ const playlists = [
         group: "Reggae,",
         duration: 90,
       },
+      {
+        name: "Monkey Dance",
+        group: "RnBGang",
+        duration: 300,
+      },
+      {
+        name: "Alone in The Dark",
+        group: "Reggae,",
+        duration: 90,
+      },
     ],
     limit: 4,
   },

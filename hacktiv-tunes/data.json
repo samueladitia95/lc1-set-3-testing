@@ -1,5 +1,38 @@
 [
   {
+    "id": 1,
+    "name": "Funtastic Kpop",
+    "type": "Mythic",
+    "songs": [
+      {
+        "name": "Mr Chu",
+        "group": "Apink",
+        "duration": 180
+      },
+      {
+        "name": "No No NO",
+        "group": "Apink",
+        "duration": 200
+      },
+      {
+        "name": "Wishlist",
+        "group": "Apink",
+        "duration": 180
+      },
+      {
+        "name": "Mr Chu",
+        "group": "Apink",
+        "duration": 320
+      },
+      {
+        "name": "Daddy Daddy Do",
+        "group": "JPop",
+        "duration": 100
+      }
+    ],
+    "limit": 10
+  },
+  {
     "id": 2,
     "name": "Waktunya Hacktivtunes",
     "type": "Legend",
@@ -22,6 +55,16 @@
     "name": "HipHop",
     "type": "Epic",
     "songs": [
+      {
+        "name": "Monkey Dance",
+        "group": "RnBGang",
+        "duration": 300
+      },
+      {
+        "name": "Alone in The Dark",
+        "group": "Reggae,",
+        "duration": 90
+      },
       {
         "name": "Monkey Dance",
         "group": "RnBGang",
